@@ -14,6 +14,7 @@ def db_path(db_id):
 def run_query(db_id, sql):
     """Run a SQL string againsts its database, returns rows (or an error)."""
     con = sqlite3.connect(db_path(db_id))
+    con.text_factory = lambda b: b.decode("utf-8", "replace")
     try:
         rows = con.execute(sql).fetchall()
         return rows, None

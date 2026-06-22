@@ -1,0 +1,14 @@
+{
+  "n": 1034,
+  "correct": 590,
+  "execution_accuracy": 0.5705996131528046,
+  "breakdown": {
+    "correct": 590,
+    "content_mismatch": 81,
+    "pred_err": 257,
+    "count_mismatch": 104,
+    "gold_error": 2
+  },
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "n_shot": 3
+}

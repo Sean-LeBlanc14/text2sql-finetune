@@ -1,0 +1,17 @@
+[
+  [
+    "CREATE TABLE Student (\n        StuID        INTEGER PRIMARY KEY,\n        LName        VARCHAR(12),\n        Fname        VARCHAR(12),\n        Age      INTEGER,\n        Sex      VARCHAR(1),\n        Major        INTEGER,\n        Advisor      INTEGER,\n        city_code    VARCHAR(3)\n )\n\nCREATE TABLE Video_Games (\n       GameID           INTEGER PRIMARY KEY,\n       GName            VARCHAR(40),\n       GType            VARCHAR(40)\n)\n\nCREATE TABLE Plays_Games (\n       StuID                INTEGER,\n       GameID            INTEGER,\n       Hours_Played      INTEGER,\n       FOREIGN KEY(GameID) REFERENCES Video_Games(GameID),\n       FOREIGN KEY(StuID) REFERENCES Student(StuID)\n)\n\nCREATE TABLE SportsInfo (\n  StuID INTEGER,\n  SportName VARCHAR(32),\n  HoursPerWeek INTEGER,\n  GamesPlayed INTEGER,\n  OnScholarship VARCHAR(1),\n  FOREIGN KEY(StuID) REFERENCES Student(StuID)\n)",
+    "What are the ids of all students who played video games and sports?",
+    "SELECT StuID FROM Sportsinfo INTERSECT SELECT StuID FROM Plays_games"
+  ],
+  [
+    "CREATE TABLE \"film\" (\n\"Film_ID\" int,\n\"Rank_in_series\" int,\n\"Number_in_season\" int,\n\"Title\" text,\n\"Directed_by\" text,\n\"Original_air_date\" text,\n\"Production_code\" text,\nPRIMARY KEY (\"Film_ID\")\n)\n\nCREATE TABLE \"cinema\" (\n\"Cinema_ID\" int,\n\"Name\" text,\n\"Openning_year\" int,\n\"Capacity\" int,\n\"Location\" text,\nPRIMARY KEY (\"Cinema_ID\"))\n\nCREATE TABLE \"schedule\" (\n\"Cinema_ID\" int,\n\"Film_ID\" int,\n\"Date\" text,\n\"Show_times_per_day\" int,\n\"Price\" float,\nPRIMARY KEY (\"Cinema_ID\",\"Film_ID\"),\nFOREIGN KEY (`Film_ID`) REFERENCES `film`(`Film_ID`),\nFOREIGN KEY (`Cinema_ID`) REFERENCES `cinema`(`Cinema_ID`)\n)",
+    "What is the location with the most cinemas opened in year 2010 or later?",
+    "SELECT LOCATION FROM cinema WHERE openning_year  >=  2010 GROUP BY LOCATION ORDER BY count(*) DESC LIMIT 1"
+  ],
+  [
+    "CREATE TABLE \"captain\" (\n\"Captain_ID\" int,\n\"Name\" text,\n\"Ship_ID\" int,\n\"age\" text,\n\"Class\" text,\n\"Rank\" text,\nPRIMARY KEY (\"Captain_ID\"),\nFOREIGN KEY (\"Ship_ID\") REFERENCES \"Ship\"(\"Ship_ID\")\n)\n\nCREATE TABLE \"Ship\" (\n\"Ship_ID\" int,\n\"Name\" text,\n\"Type\" text,\n\"Built_Year\" real,\n\"Class\" text,\n\"Flag\" text,\nPRIMARY KEY (\"Ship_ID\")\n)",
+    "Find the name of captains whose rank are either Midshipman or Lieutenant.",
+    "SELECT name FROM captain WHERE rank  =  'Midshipman' OR rank  =  'Lieutenant'"
+  ]
+]
