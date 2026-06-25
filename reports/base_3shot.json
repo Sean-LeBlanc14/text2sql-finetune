@@ -9,5 +9,7 @@
     "count_mismatch": 104
   },
   "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
-  "n_shot": 3
+  "adapter": null,
+  "shots": 3,
+  "tag": "base_3shot"
 }

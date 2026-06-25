@@ -77,6 +77,22 @@ def build_messages(
     return messages
 
 
+def build_prompt_completion(
+    run_query: RunQuery,
+    db_id: str,
+    question: str,
+    gold_sql: str,
+) -> Tuple[List[dict], List[dict]]:
+    """
+    Training pair for SFT. The prompt is the zero-shot eval prompt, so the model
+    trains on what it was evaluated on. Returns (prompt_messages, completion_messages)
+    """
+    
+    prompt = build_messages(run_query, db_id, question, few_shots=[])
+    completion = [{"role": "assistant", "content": gold_sql.strip()}]
+    return prompt, completion
+
+
 def select_few_shots(
     run_query: RunQuery,
     train_data: List[dict],

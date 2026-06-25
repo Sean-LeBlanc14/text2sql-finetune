@@ -2,7 +2,7 @@
 
 ## Hypothesis
 QLoRA fine-tuning Qwen2.5-Coder-1.5B-Instruct improves execution accuracy on the
-Spider dataset over a few-shot baseline of **57.25%** (single-database, val set).
+Spider dataset over a zero-shot baseline of **58.22%** (single-database, val set).
 
 ## Metric
 Execution accuracy: does the generated SQL run and return the correct rows?
@@ -13,12 +13,23 @@ accuracy — the official test-suite metric runs multiple DB instances per schem
 and is a possible later upgrade.
 
 ## Baseline
-Qwen2.5-Coder-1.5B-Instruct, 3-shot, Spider dev (1,034 examples): **57.25%**.
-Dominant failure: schema grounding — 244/257 execution errors are `no such
-column` (inventing or misattributing column names), the gap fine-tuning targets.
+Qwen2.5-Coder-1.5B-Instruct, Spider val (1,034 examples), greedy decoding:
+
+| config        | execution accuracy |
+|---------------|--------------------|
+| base, 0-shot  | **58.22%** (602/1034) |
+| base, 3-shot  | 57.25% (592/1034)  |
+
+Few-shot exemplars did not help on this instruct/code model — 0-shot edges out
+3-shot — so training and eval are both zero-shot, and **58.22% is the bar to
+beat**. Dominant failure is schema grounding: ~250 of the misses are queries that
+don't execute (`no such column` — inventing or misattributing column names), the
+gap fine-tuning targets. The remainder run but return wrong rows (count/content
+mismatch).
 
 ## Status
-- [x] baseline — 57.25%
+- [x] baseline — base 0-shot 58.22%, base 3-shot 57.25%
+- [ ] training set built
 - [ ] first fine-tune
-- [ ] eval
-- [ ] ablations 
+- [ ] eval vs baseline
+- [ ] ablations
