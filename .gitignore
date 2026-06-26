@@ -6,3 +6,4 @@ checkpoints/
 *.db
 data/
 
+adapters/
