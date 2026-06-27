@@ -24,7 +24,8 @@ MODEL_ID = "Qwen/Qwen2.5-Coder-1.5B-Instruct"
 def parse_args():
     p = argparse.ArgumentParser()
     p.add_argument("--train-file", default="data/train_prompt_completion.jsonl")
-    p.add_argument("--output-dir", default="adapters/qwen2.5-coder-1.5b-spider")
+    p.add_argument("--output-dir", default=None,
+                   help="default: adapters/<run-name>")
     p.add_argument("--epochs", type=float, default=2.0)
     p.add_argument("--max-length", type=int, default=1024)
     p.add_argument("--lr", type=float, default=2e-4)
@@ -41,6 +42,9 @@ def parse_args():
 
 def main():
     args = parse_args()
+    if args.output_dir is None:
+        args.output_dir = f"adapters/{args.run_name}"
+
     os.environ.setdefault("WANDB_PROJECT", "text2sql-finetune")
 
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)

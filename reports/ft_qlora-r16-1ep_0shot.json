@@ -1,0 +1,15 @@
+{
+  "n": 1034,
+  "correct": 828,
+  "execution_accuracy": 0.8007736943907157,
+  "breakdown": {
+    "correct": 828,
+    "content_mismatch": 50,
+    "count_mismatch": 90,
+    "pred_err": 66
+  },
+  "model": "Qwen/Qwen2.5-Coder-1.5B-Instruct",
+  "adapter": "adapters/qlora-r16-1ep",
+  "shots": 0,
+  "tag": "ft_0shot"
+}

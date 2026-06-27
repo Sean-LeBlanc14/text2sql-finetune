@@ -103,7 +103,12 @@ def main():
                     help="name for output files (default: <base|ft>_<shots>shot)")
     args = ap.parse_args()
 
-    tag = args.tag or f"{'ft' if args.adapter else 'base'}_{args.shots}shot"
+    if args.tag:
+        tag = args.tag
+    elif args.adapter:
+        tag = f"ft_{os.path.basename(args.adapter.rstrip('/'))}_{args.shots}shot"
+    else:
+        tag = f"base_{args.shots}shot"
 
     val = prompt_utils.load_split(args.val)
     if args.limit:
